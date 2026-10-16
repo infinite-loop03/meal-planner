@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Aaj kya banega?</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="/static/icons/icon-192.png">
+  <link rel="manifest" href="/static/manifest.webmanifest">
+  <!-- iPhone home-screen app -->
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Kya Banega">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#eceef3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#13111a" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#plan"><span class="brand-plate" aria-hidden="true">🍛</span>Aaj kya banega?</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#plan" data-tab="plan"><span aria-hidden="true">🗓️</span>Plan</a>
+      <a href="#grocery" data-tab="grocery"><span aria-hidden="true">🛒</span>Groceries</a>
+      <a href="#dishes" data-tab="dishes"><span aria-hidden="true">🍲</span>Dishes</a>
+      <a href="#pantry" data-tab="pantry"><span aria-hidden="true">🫙</span>Pantry</a>
+      <a href="#rules" data-tab="rules"><span aria-hidden="true">🔗</span>Rules</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- PLAN -->
+    <section id="view-plan" class="view" hidden>
+      <div class="hero" id="today"></div>
+
+      <div class="weekbar">
+        <div class="weeknav">
+          <button class="icon" id="prevWeek" aria-label="Previous week">‹</button>
+          <h2 id="weekLabel"></h2>
+          <button class="icon" id="nextWeek" aria-label="Next week">›</button>
+          <button class="link" id="thisWeek" hidden>Back to this week</button>
+        </div>
+        <button class="primary big" id="generate"><span aria-hidden="true">🎲</span> Plan this week</button>
+      </div>
+      <p class="note">Drag a meal onto another to swap them. Cooked and skipped meals stay put when you plan again.</p>
+
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <!-- GROCERY -->
+    <section id="view-grocery" class="view" hidden>
+      <div class="viewhead">
+        <div>
+          <h1>Groceries</h1>
+          <p class="note" id="groceryNote"></p>
+        </div>
+        <div class="headactions">
+          <div class="segmented" role="radiogroup" aria-label="Range">
+            <button role="radio" data-range="tomorrow" aria-checked="true">Tomorrow</button>
+            <button role="radio" data-range="week" aria-checked="false">Next 7 days</button>
+          </div>
+          <button class="secondary" id="copyList">Copy list</button>
+        </div>
+      </div>
+      <div id="groceryBody"></div>
+    </section>
+
+    <!-- DISHES -->
+    <section id="view-dishes" class="view" hidden>
+      <div class="viewhead">
+        <h1>Dishes</h1>
+        <div class="headactions">
+          <input type="search" id="dishSearch" placeholder="Find a dish, ingredient or tag" aria-label="Find a dish">
+          <button class="primary" id="addDish">Add dish</button>
+        </div>
+      </div>
+      <div class="dishcols" id="dishCols"></div>
+    </section>
+
+    <!-- PANTRY -->
+    <section id="view-pantry" class="view" hidden>
+      <div class="viewhead">
+        <div>
+          <h1>Pantry</h1>
+          <p class="note" id="pantryNote">Tap an item to move it between "At home" and "Ran out".</p>
+        </div>
+        <div class="headactions">
+          <input type="search" id="pantrySearch" placeholder="Find an ingredient" aria-label="Find an ingredient">
+          <div class="segmented" role="radiogroup" aria-label="Pantry view">
+            <button role="radio" data-pview="stock" aria-checked="true">Stock</button>
+            <button role="radio" data-pview="settings" aria-checked="false">Settings</button>
+          </div>
+        </div>
+      </div>
+      <div id="pantryStock"></div>
+      <div id="pantrySettings" hidden>
+        <div class="tablewrap">
+          <table class="pantry">
+            <thead>
+              <tr><th>Ingredient</th><th>Perishable</th><th>Shelf life</th><th>Staple</th></tr>
+            </thead>
+            <tbody id="pantryBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section id="view-rules" class="view" hidden>
+      <div class="viewhead">
+        <div>
+          <h1>Rules</h1>
+          <p class="note">Pair meals together. Rules steer the planner, but never break the spacing rules for perishables and repeats.</p>
+        </div>
+        <button class="primary" id="addRule">Add rule</button>
+      </div>
+      <div id="rulesList" class="rules"></div>
+    </section>
+  </main>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" tabindex="-1" role="dialog" aria-modal="true">
+    <button class="icon close" id="closeDrawer" aria-label="Close">×</button>
+    <div id="drawerBody"></div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
